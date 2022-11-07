@@ -63,7 +63,13 @@ class Matrix(list):
         return chr(random.randint(32, 126))
 
     def update_cell(
-        self, r: int, c: int, *, char: str = None, state: int = None, length: int = None
+        self,
+        r: int,
+        c: int,
+        *,
+        char: str = None,
+        state: int = None,
+        length: int = None,
     ):
         if char is not None:
             self[r][c][0] = char
@@ -148,9 +154,15 @@ class Matrix(list):
 
 @app.command()
 def start(
-    speed: int = typer.Option(100, help="Percentage of normal rain speed"),
-    glitches: int = typer.Option(100, help="Percentage of normal glitch amount"),
-    frequency: int = typer.Option(100, help="Percentage of normal drop frequency"),
+    speed: int = typer.Option(
+        100, "--speed", "-s", help="Percentage of normal rain speed"
+    ),
+    glitches: int = typer.Option(
+        100, "--glitches", "-g", help="Percentage of normal glitch amount"
+    ),
+    frequency: int = typer.Option(
+        100, "--frequency", "-f", help="Percentage of normal drop frequency"
+    ),
 ):
     """Start the matrix rain"""
 
