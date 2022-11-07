@@ -106,20 +106,15 @@ class Matrix(list):
         return dropped
 
     def add_drop(self, row: int, col: int, length: int):
-        dropped = 0
-
         for i in reversed(range(length)):
             r = row + (length - i)
 
             if i == 0:
                 self.update_cell(r, col, state=STATE_FRONT, length=length)
-                dropped += 1
             else:
                 l = math.ceil((TOTAL_CLRS - 1) * i / length)
 
                 self.update_cell(r, col, state=STATE_TAIL, length=l)
-
-        return dropped
 
     def screen_check(self):
         if (p := self.get_prompt_size()) != (self.rows, self.cols):
@@ -136,7 +131,7 @@ class Matrix(list):
             col = random.randint(0, self.cols - 1)
             length = random.randint(MIN_LEN, MAX_LEN)
 
-            dropped += self.add_drop(0, col, length)
+            self.add_drop(0, col, length)
 
     def start(self):
         while True:
