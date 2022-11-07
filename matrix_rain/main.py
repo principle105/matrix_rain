@@ -18,7 +18,7 @@ STATE_TAIL = 2
 
 # Drop lengths
 MIN_LEN = 5
-MAX_LEN = 10
+MAX_LEN = 12
 
 # Drop colours
 BODY_CLRS = [
