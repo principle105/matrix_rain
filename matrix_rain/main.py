@@ -32,13 +32,13 @@ TOTAL_CLRS = len(BODY_CLRS)
 
 
 class Matrix(list):
-    def __init__(self):
+    def __init__(self, wait: int, glitch_freq: int, drop_freq: int):
         self.rows = 0
         self.cols = 0
 
-        self.wait = 0.06
-        self.error_freq = 0.01
-        self.drop_freq = 0.1
+        self.wait = 0.06 / (wait / 100)
+        self.glitch_freq = 0.01 / (glitch_freq / 100)
+        self.drop_freq = 0.1 * (drop_freq / 100)
 
     def __str__(self):
         text = ""
@@ -81,7 +81,7 @@ class Matrix(list):
         ]
 
     def apply_glitch(self):
-        total = self.cols * self.rows * self.error_freq
+        total = self.cols * self.rows * self.glitch_freq
 
         for _ in range(int(total)):
             c = random.randint(0, self.cols - 1)
@@ -147,8 +147,19 @@ class Matrix(list):
 
 
 @app.command()
-def start():
-    matrix = Matrix()
+def start(
+    speed: int = typer.Option(100, help="Percentage of normal rain speed"),
+    glitches: int = typer.Option(100, help="Percentage of normal glitch amount"),
+    frequency: int = typer.Option(100, help="Percentage of normal drop frequency"),
+):
+    """Start the matrix rain"""
+
+    # Argument validation
+    for arg in (speed, glitches, frequency):
+        if not 0 <= arg <= 1000:
+            raise typer.BadParameter("must be between 1 and 1000")
+
+    matrix = Matrix(speed, glitches, frequency)
     matrix.start()
 
 
