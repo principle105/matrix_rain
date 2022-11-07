@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "matrix_rain"
+version = "0.1.0"
+description = ""
+authors = ["principle105 <principle105@gmail.com>"]
+readme = "README.md"
+packages = [{include = "matrix_rain"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+typer = "^0.6.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.8.0"
+isort = "^5.10.1"
+
+[tool.poetry.scripts]
+matrix_rain = "matrix_rain.main:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
